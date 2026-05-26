@@ -1,12 +1,23 @@
-name: My First GitHub Action
+name: Run Iris Project
 
 on:
   push:
 
 jobs:
-  say-hello:
+  run-project:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Print Message
-        run: echo "Hello Vamshi! GitHub Actions is working."
+      - name: Download Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run Application
+        run: python app.py
